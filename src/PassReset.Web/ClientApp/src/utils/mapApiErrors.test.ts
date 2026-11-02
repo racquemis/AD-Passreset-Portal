@@ -38,8 +38,19 @@ describe('mapApiErrors', () => {
     expect(mapApiErrors([{ errorCode: ApiErrorCode.PwnedPassword }], {}).general).toMatch(/publicly known/i);
   });
 
-  it('falls back to the generic message for an unmapped code', () => {
-    expect(mapApiErrors([{ errorCode: ApiErrorCode.BannedWord }], {}).general).toMatch(/unexpected error/i);
+  it('maps a Generic (redacted) error to an actionable message', () => {
+    expect(mapApiErrors([{ errorCode: ApiErrorCode.Generic }], {}).general).toMatch(/could not be changed/i);
+  });
+
+  it('uses the same local-policy message for BannedWord and LocallyKnownPwned', () => {
+    const bannedWord = mapApiErrors([{ errorCode: ApiErrorCode.BannedWord }], {}).general;
+    const locallyKnownPwned = mapApiErrors([{ errorCode: ApiErrorCode.LocallyKnownPwned }], {}).general;
+    expect(bannedWord).toBe('This password is not allowed by local policy.');
+    expect(locallyKnownPwned).toBe(bannedWord);
+  });
+
+  it('falls back to the generic message for unknown codes', () => {
+    expect(mapApiErrors([{ errorCode: 999 }], {}).general).toMatch(/unexpected error/i);
   });
 
   it('lets the last error per field win', () => {
