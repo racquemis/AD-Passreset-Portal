@@ -408,8 +408,8 @@ Controls the UI and frontend behaviour.
   "ChangePasswordForm": {
     "HelpText": "If you are having trouble with this tool, please contact IT Support.",
     "UsernameLabel": "Username",
-    "UsernameHelpblock": "Your organisation email address",
-    "UsernameDefaultDomainHelperBlock": "Your organisation username",
+    "UsernameHelpblock": "",
+    "UsernameDefaultDomainHelperBlock": "",
     "CurrentPasswordLabel": "Current Password",
     "CurrentPasswordHelpblock": "",
     "NewPasswordLabel": "New Password",
@@ -484,8 +484,8 @@ All strings are optional — defaults are built into the React app. Override any
 |-----|-------------|
 | `HelpText` | Paragraph shown above the form. |
 | `UsernameLabel` | Label for the username field. |
-| `UsernameHelpblock` | Helper text shown below the username field when `UseEmail` is `true`. |
-| `UsernameDefaultDomainHelperBlock` | Helper text shown when `samaccountname` is the accepted attribute. |
+| `UsernameHelpblock` | Helper text shown below the username field when `UseEmail` is `true`. Leave empty to show the auto-generated hint (e.g. "Enter your email address"). |
+| `UsernameDefaultDomainHelperBlock` | Helper text shown when `UseEmail` is `false`. Leave empty to show the auto-generated hint built from `AllowedUsernameAttributes` (e.g. "Enter your username (e.g. jdoe)"). |
 | `CurrentPasswordLabel` | Label for the current-password field. |
 | `NewPasswordLabel` | Label for the new-password field. |
 | `NewPasswordHelpblock` | Helper text below the new-password field. |

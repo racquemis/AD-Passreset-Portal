@@ -55,6 +55,14 @@ export function PasswordForm({ settings, onSuccess, initialUsername = '' }: Prop
     return 'Enter your ' + parts.join(' or ');
   }, [attrs]);
 
+  // Operator-configured text wins; the generated hint is only the fallback when none is set.
+  const configuredUsernameHelper = settings.useEmail
+    ? form.usernameHelpblock
+    : (form.usernameDefaultDomainHelperBlock || form.usernameHelpblock);
+  const usernameHelper = configuredUsernameHelper
+    || usernameHint
+    || (settings.useEmail ? 'Your organisation email address' : '');
+
   const [username, setUsername]                 = useState(initialUsername);
   const [currentPassword, setCurrentPassword]   = useState('');
   const [newPassword, setNewPassword]           = useState('');
@@ -196,11 +204,7 @@ export function PasswordForm({ settings, onSuccess, initialUsername = '' }: Prop
         fullWidth
         required
         label={form.usernameLabel ?? 'Username'}
-        helperText={formErrors.username ?? (usernameHint !== null
-          ? usernameHint
-          : (settings.useEmail
-            ? (form.usernameHelpblock ?? 'Your organisation email address')
-            : (form.usernameDefaultDomainHelperBlock ?? form.usernameHelpblock ?? '')))}
+        helperText={formErrors.username ?? usernameHelper}
         error={!!formErrors.username}
         value={username}
         onChange={e => setUsername(e.target.value)}

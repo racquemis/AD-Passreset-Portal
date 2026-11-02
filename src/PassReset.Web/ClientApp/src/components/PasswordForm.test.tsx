@@ -58,6 +58,20 @@ describe('PasswordForm', () => {
     expect(screen.getByRole('button', { name: /change password/i })).toBeInTheDocument();
   });
 
+  it('shows the generated username hint when no helper text is configured', () => {
+    renderForm({ allowedUsernameAttributes: ['samaccountname'] });
+    expect(screen.getByText('Enter your username (e.g. jdoe)')).toBeInTheDocument();
+  });
+
+  it('prefers the configured username helper text over the generated hint', () => {
+    renderForm({
+      allowedUsernameAttributes: ['samaccountname'],
+      changePasswordForm: { usernameDefaultDomainHelperBlock: 'Use your corporate login' },
+    });
+    expect(screen.getByText('Use your corporate login')).toBeInTheDocument();
+    expect(screen.queryByText(/e\.g\. jdoe/)).not.toBeInTheDocument();
+  });
+
   it('shows field-required errors on empty submit and does not call fetch', async () => {
     const fetchFn = vi.fn();
     vi.stubGlobal('fetch', fetchFn);
