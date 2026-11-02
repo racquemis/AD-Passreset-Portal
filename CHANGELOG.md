@@ -8,6 +8,9 @@ Versions follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Fixed
+- `UsernameHelpblock` / `UsernameDefaultDomainHelperBlock` are now honoured; previously the auto-generated "Enter your username (e.g. jdoe)" hint always overrode them. Shipped defaults are now empty so the generated hint still appears unless you set your own text.
+
 ---
 
 ## [2.1.0] — 2026-06-22
