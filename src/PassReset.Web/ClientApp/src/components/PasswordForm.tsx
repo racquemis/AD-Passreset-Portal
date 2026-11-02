@@ -92,6 +92,7 @@ export function PasswordForm({ settings, onSuccess, initialUsername = '' }: Prop
   // Fail-open flag mirrors the server-side PasswordChangeOptions. Default TRUE
   // (hide indicator on HIBP outage) unless operator explicitly sets it to false,
   // in which case the warning Alert is rendered.
+  const hibpEnabled = settings.pwnedCheckEnabled !== false;
   const hibpFailOpen = settings.failOpenOnPwnedCheckUnavailable !== false;
 
   // Assemble the Form Validation inputs from settings + the compiled regexes.
@@ -235,7 +236,7 @@ export function PasswordForm({ settings, onSuccess, initialUsername = '' }: Prop
         type={showNew ? 'text' : 'password'}
         value={newPassword}
         onChange={e => setNewPassword(e.target.value)}
-        onBlur={e => hibpCheck(e.target.value)}
+        onBlur={e => { if (hibpEnabled) hibpCheck(e.target.value); }}
         autoComplete="new-password"
         inputProps={{ maxLength: 256 }}
         InputProps={{
@@ -258,7 +259,7 @@ export function PasswordForm({ settings, onSuccess, initialUsername = '' }: Prop
       />
 
       {/* FEAT-004: HIBP breach indicator (blur-triggered, debounced, k-anonymity) */}
-      <HibpIndicator state={hibpState} count={hibpCount} failOpen={hibpFailOpen} />
+      {hibpEnabled && <HibpIndicator state={hibpState} count={hibpCount} failOpen={hibpFailOpen} />}
 
       {/* FEAT-003: clipboard auto-clear countdown / cleared chip */}
       <ClipboardCountdown remaining={clipboardRemaining} state={clipboardState} />

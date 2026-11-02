@@ -8,6 +8,12 @@ Versions follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- `PasswordChangeOptions.PwnedCheckEnabled` (default `true`): set `false` to disable the remote HIBP check entirely (no outbound calls, no submit-time check, no UI indicator).
+
+### Fixed
+- The HIBP pre-check endpoint and UI indicator are now also disabled when `LocalPwnedPasswordsPath` is configured, instead of still calling the remote API.
+
 ---
 
 ## [2.1.0] — 2026-06-22

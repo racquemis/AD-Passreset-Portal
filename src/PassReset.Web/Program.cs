@@ -66,6 +66,11 @@ try
         .Bind(builder.Configuration.GetSection(nameof(ClientSettings)))
         .ValidateOnStart();
     builder.Services.AddSingleton<IValidateOptions<ClientSettings>, ClientSettingsValidator>();
+    // Derive the client-facing HIBP flag from PasswordChangeOptions (single source of truth).
+    builder.Services.AddOptions<ClientSettings>()
+        .PostConfigure<IOptions<PasswordChangeOptions>>((cs, pco) =>
+            cs.PwnedCheckEnabled = pco.Value.PwnedCheckEnabled
+                && string.IsNullOrWhiteSpace(pco.Value.LocalPolicy?.LocalPwnedPasswordsPath));
 
     builder.Services.AddOptions<WebSettings>()
         .Bind(builder.Configuration.GetSection(nameof(WebSettings)))
@@ -145,7 +150,8 @@ try
         var opts = sp.GetRequiredService<IOptions<PasswordChangeOptions>>().Value;
         var http = sp.GetRequiredService<IHttpClientFactory>().CreateClient("pwned");
         var logger = sp.GetRequiredService<ILogger<PwnedPasswordChecker>>();
-        var disabled = !string.IsNullOrWhiteSpace(opts.LocalPolicy?.LocalPwnedPasswordsPath);
+        var disabled = !opts.PwnedCheckEnabled
+            || !string.IsNullOrWhiteSpace(opts.LocalPolicy?.LocalPwnedPasswordsPath);
         return new PwnedPasswordChecker(http, logger, disabled: disabled);
     });
     builder.Services.AddTransient<IPwnedPasswordChecker>(sp =>

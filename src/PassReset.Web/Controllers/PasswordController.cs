@@ -112,6 +112,10 @@ public sealed class PasswordController : ControllerBase
         if (req is null || req.Prefix is null || req.Prefix.Length != 5 || !Sha1PrefixRegex.IsMatch(req.Prefix))
             return BadRequest();
 
+        // Remote HIBP disabled: never call out; the client does not request this when disabled.
+        if (!_clientSettings.Value.PwnedCheckEnabled)
+            return NotFound();
+
         var clientIp = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
 
         var (body, unavailable) = await _pwnedChecker.FetchRangeAsync(req.Prefix, ct);
