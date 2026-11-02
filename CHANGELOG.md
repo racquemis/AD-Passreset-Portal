@@ -13,6 +13,7 @@ Versions follow [Semantic Versioning](https://semver.org/).
 
 ### Fixed
 - The HIBP pre-check endpoint and UI indicator are now also disabled when `LocalPwnedPasswordsPath` is configured, instead of still calling the remote API.
+- `UsernameHelpblock` / `UsernameDefaultDomainHelperBlock` are now honoured; previously the auto-generated "Enter your username (e.g. jdoe)" hint always overrode them. Shipped defaults are now empty so the generated hint still appears unless you set your own text.
 
 ---
 
