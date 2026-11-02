@@ -121,6 +121,19 @@ public class PwnedPasswordCheckerTests
         Assert.Equal(0, handler.CallCount);
     }
 
+    [Fact]
+    public async Task Disabled_FetchRange_ReturnsUnavailableWithoutHttpCall()
+    {
+        using var handler = new RecordingHandler();
+        var client = new HttpClient(handler) { BaseAddress = new Uri("https://api.pwnedpasswords.com/") };
+        var sut = new PwnedPasswordChecker(client, disabled: true);
+
+        var (_, unavailable) = await sut.FetchRangeAsync("ABCDE");
+
+        Assert.True(unavailable);
+        Assert.Equal(0, handler.CallCount);
+    }
+
     private sealed class RecordingHandler : HttpMessageHandler
     {
         public int CallCount { get; private set; }

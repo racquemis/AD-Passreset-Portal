@@ -198,6 +198,7 @@ If you change `path`, ensure the app pool identity has `Modify` rights on the pa
   "DefaultDomain": "yourdomain.com",
   "ClearMustChangePasswordFlag": true,
   "EnforceMinimumPasswordAge": true,
+  "PwnedCheckEnabled": true,
   "FailOpenOnPwnedCheckUnavailable": false,
   "AllowSetPasswordFallback": false,
   "UpdateLastPassword": false,
@@ -228,6 +229,7 @@ If you change `path`, ensure the app pool identity has `Modify` rights on the pa
 | `LdapPort` | int | `636` | LDAP/LDAPS port. Default `636` (LDAPS). Use `389` for plain LDAP (not recommended). |
 | `LdapUseSsl` | bool | `true` | Enables LDAPS (LDAP over TLS). Set to `false` only when LDAPS is unavailable. |
 | `LdapUsername` | string | `""` | Service account UPN or SAM for LDAP bind. Used when `UseAutomaticContext` is `false`. |
+| `PwnedCheckEnabled` | bool | `true` | When `false`, the remote HIBP check is disabled entirely: no outbound calls to `api.pwnedpasswords.com`, no submit-time check and no UI indicator. Also implied when `LocalPolicy.LocalPwnedPasswordsPath` is set. |
 | `FailOpenOnPwnedCheckUnavailable` | bool | `false` | When `true`, allows password changes to proceed when the HIBP API is unreachable (breach check is skipped). When `false`, an unreachable API blocks the change. |
 | `AllowSetPasswordFallback` | bool | `false` | When `true`, falls back to the administrative `SetPassword` API on COMException (Windows provider, explicit-credentials mode only). **Warning:** bypasses AD password-history enforcement (min-age is still enforced). See [AD-ServiceAccount-Setup.md → SetPassword fallback](AD-ServiceAccount-Setup.md#setpassword-fallback-allowsetpasswordfallback). |
 | `LdapPassword` | string | `""` | Password for `LdapUsername`. Store securely — consider using environment variable substitution or a secrets manager. |

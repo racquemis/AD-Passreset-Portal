@@ -47,7 +47,7 @@ public sealed class PwnedPasswordChecker : IPwnedPasswordChecker
     /// </summary>
     public async Task<(string RangeBody, bool Unavailable)> FetchRangeAsync(string sha1Prefix5, CancellationToken ct = default)
     {
-        if (string.IsNullOrEmpty(sha1Prefix5) || !Sha1PrefixRegex.IsMatch(sha1Prefix5))
+        if (_disabled || string.IsNullOrEmpty(sha1Prefix5) || !Sha1PrefixRegex.IsMatch(sha1Prefix5))
             return (string.Empty, true);
 
         try

@@ -8,7 +8,11 @@ Versions follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- `PasswordChangeOptions.PwnedCheckEnabled` (default `true`): set `false` to disable the remote HIBP check entirely (no outbound calls, no submit-time check, no UI indicator).
+
 ### Fixed
+- The HIBP pre-check endpoint and UI indicator are now also disabled when `LocalPwnedPasswordsPath` is configured, instead of still calling the remote API.
 - `UsernameHelpblock` / `UsernameDefaultDomainHelperBlock` are now honoured; previously the auto-generated "Enter your username (e.g. jdoe)" hint always overrode them. Shipped defaults are now empty so the generated hint still appears unless you set your own text.
 
 ---

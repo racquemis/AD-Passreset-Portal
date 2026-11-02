@@ -85,6 +85,8 @@ export interface ClientSettings {
   // FEAT-004: when true, the blur-triggered HIBP indicator stays silent if HIBP
   // is unreachable (matches server-side PasswordChangeOptions.FailOpenOnPwnedCheckUnavailable).
   failOpenOnPwnedCheckUnavailable?: boolean;
+  // False when the remote HIBP check is disabled server-side; the indicator is hidden.
+  pwnedCheckEnabled?: boolean;
 }
 
 // FEAT-004: response shape from POST /api/password/pwned-check.

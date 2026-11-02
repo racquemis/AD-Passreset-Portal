@@ -30,6 +30,12 @@ public class ClientSettings
     /// Seconds after generator copy before clipboard is auto-cleared (only if content still matches). 0 disables. Default 30.
     /// </summary>
     public int ClipboardClearSeconds { get; set; } = 30;
+
+    /// <summary>
+    /// Whether the remote HIBP breach check is active. Derived from PasswordChangeOptions at
+    /// startup (see Program.cs); not read from the ClientSettings config section.
+    /// </summary>
+    public bool PwnedCheckEnabled { get; set; } = true;
 }
 
 public sealed class BrandingSettings

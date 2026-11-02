@@ -60,6 +60,14 @@ public class PasswordChangeOptions : IAppSettings
     public bool ClearMustChangePasswordFlag { get; set; } = true;
 
     /// <summary>
+    /// When false, the remote HaveIBeenPwned (HIBP) breach check is disabled entirely: no
+    /// outbound calls to api.pwnedpasswords.com, no submit-time check and no UI indicator.
+    /// Also treated as disabled when <c>LocalPolicy.LocalPwnedPasswordsPath</c> is configured.
+    /// Default: true.
+    /// </summary>
+    public bool PwnedCheckEnabled { get; set; } = true;
+
+    /// <summary>
     /// When true, allows password changes to proceed when the HaveIBeenPwned API is
     /// unreachable. The breach check is skipped with a warning log entry.
     /// When false (default), unreachable HIBP API blocks the password change.
