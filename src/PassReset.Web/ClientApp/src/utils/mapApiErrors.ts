@@ -30,8 +30,8 @@ export function errorMessage(code: number, alerts: ClientSettings['alerts']): st
     // ApproachingLockout uses the configured warning string as both the general error and warning banner.
     case ApiErrorCode.ApproachingLockout:       return a.errorApproachingLockout       ?? 'Incorrect password. One more failed attempt will temporarily lock your portal access.';
     case ApiErrorCode.PasswordTooRecentlyChanged: return a.errorPasswordTooRecentlyChanged ?? 'Your password was changed too recently. Please wait before trying again.';
-    case ApiErrorCode.BannedWord:               return 'This password contains a word that is not allowed. Please choose another.';
-    case ApiErrorCode.LocallyKnownPwned:        return a.errorPwnedPassword        ?? 'This password is publicly known. Please choose another.';
+    case ApiErrorCode.BannedWord:
+    case ApiErrorCode.LocallyKnownPwned:        return 'This password is not allowed by local policy.';
     // Generic also carries redacted InvalidCredentials/UserNotFound in Production (anti-enumeration).
     case ApiErrorCode.Generic:                  return 'The password could not be changed. Check that your username and current password are correct and that the new password meets the password policy.';
     default:                                    return 'An unexpected error occurred. Please contact IT Support.';
