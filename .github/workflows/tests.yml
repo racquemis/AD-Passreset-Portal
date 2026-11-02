@@ -171,7 +171,9 @@ jobs:
   # Warning-only (continue-on-error: true) until stable. Runs on Linux because the
   # integration project targets plain net10.0 and Samba ships a Linux container.
   # Requires repo secrets: SAMBA_DOMAIN_PASSWORD, SAMBA_TEST_OLD_PASSWORD, SAMBA_TEST_NEW_PASSWORD.
+  # DISABLED: no live Samba environment available to validate against. Remove `if: false` to re-enable.
   integration-tests-ldap:
+    if: false
     runs-on: ubuntu-latest
     continue-on-error: true
     services:
