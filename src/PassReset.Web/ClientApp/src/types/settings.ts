@@ -30,6 +30,15 @@ export interface ErrorsPasswordForm {
   usernamePattern?: string;
 }
 
+export interface PasswordPolicyText {
+  panelTitle?: string;
+  minLength?: string;
+  complexity?: string;
+  history?: string;
+  minAge?: string;
+  maxAge?: string;
+}
+
 export interface Alerts {
   successAlertTitle?: string;
   successAlertBody?: string;
@@ -77,6 +86,7 @@ export interface ClientSettings {
   recaptcha?: RecaptchaSettings;
   changePasswordForm?: ChangePasswordFormStrings;
   errorsPasswordForm?: ErrorsPasswordForm;
+  passwordPolicyText?: PasswordPolicyText;
   validationRegex?: ValidationRegex;
   alerts?: Alerts;
   branding?: BrandingSettings;

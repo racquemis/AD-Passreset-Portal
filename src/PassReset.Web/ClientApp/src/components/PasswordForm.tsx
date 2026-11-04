@@ -197,7 +197,7 @@ export function PasswordForm({ settings, onSuccess, initialUsername = '' }: Prop
 
       {/* AD password policy panel (FEAT-002 / STAB-021) — rendered above Username by default */}
       {settings.showAdPasswordPolicy && (
-        <AdPasswordPolicyPanel policy={adPolicy} loading={adPolicyLoading} />
+        <AdPasswordPolicyPanel policy={adPolicy} loading={adPolicyLoading} text={settings.passwordPolicyText} />
       )}
 
       {/* Username */}

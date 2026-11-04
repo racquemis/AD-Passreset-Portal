@@ -103,7 +103,7 @@ export function StatusView({ settings, onChangePassword }: Props) {
           {expiryText(status)}
         </Typography>
 
-        <AdPasswordPolicyPanel policy={status.policy} loading={false} />
+        <AdPasswordPolicyPanel policy={status.policy} loading={false} text={settings.passwordPolicyText} />
 
         <Button
           variant="contained"
