@@ -17,6 +17,7 @@ public class ClientSettings
     public string[] AllowedUsernameAttributes { get; set; } = [];
     public ChangePasswordForm? ChangePasswordForm { get; set; }
     public ErrorsPasswordForm? ErrorsPasswordForm { get; set; }
+    public PasswordPolicyText? PasswordPolicyText { get; set; }
     public Recaptcha? Recaptcha { get; set; }
     public string? ApplicationTitle { get; set; }
     public string? ChangePasswordTitle { get; set; }
@@ -103,6 +104,20 @@ public class ErrorsPasswordForm
     public string? PasswordMatch { get; set; }
     public string? UsernameEmailPattern { get; set; }
     public string? UsernamePattern { get; set; }
+}
+
+/// <summary>
+/// Operator-configurable text for the password requirements panel. "{0}" is replaced with
+/// the policy value. Unset entries fall back to the built-in English text.
+/// </summary>
+public class PasswordPolicyText
+{
+    public string? PanelTitle { get; set; }
+    public string? MinLength { get; set; }
+    public string? Complexity { get; set; }
+    public string? History { get; set; }
+    public string? MinAge { get; set; }
+    public string? MaxAge { get; set; }
 }
 
 public class ValidationRegex
